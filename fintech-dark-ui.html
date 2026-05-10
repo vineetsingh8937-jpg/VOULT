@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VAULT — Fintech Dark UI System</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ── CORE PALETTE ─────────────────────────────── */
+    --void:       #080A0F;
+    --abyss:      #0D1017;
+    --surface:    #131720;
+    --elevated:   #1A2030;
+    --border:     #232B3A;
+    --border-hi:  #2E3A50;
+
+    /* ── ACCENT SYSTEM ────────────────────────────── */
+    --gold:       #C9A84C;
+    --gold-glow:  #D4B563;
+    --gold-dim:   #8A6E2E;
+    --teal:       #2DD4BF;
+    --teal-dim:   #134E48;
+    --red:        #FF4757;
+    --red-dim:    #3D1219;
+    --green:      #2ECC71;
+    --green-dim:  #0F3E24;
+
+    /* ── TEXT ─────────────────────────────────────── */
+    --text-1:     #EDF2FF;
+    --text-2:     #8B95A8;
+    --text-3:     #4E5A6E;
+
+    /* ── SPACING GRID (8px base) ──────────────────── */
+    --s1:  4px;
+    --s2:  8px;
+    --s3:  12px;
+    --s4:  16px;
+    --s5:  20px;
+    --s6:  24px;
+    --s7:  32px;
+    --s8:  40px;
+    --s9:  48px;
+    --s10: 64px;
+
+    /* ── RADIUS ───────────────────────────────────── */
+    --r1: 4px;
+    --r2: 8px;
+    --r3: 12px;
+    --r4: 16px;
+    --r5: 24px;
+    --r6: 32px;
+    --r-pill: 999px;
+
+    /* ── TYPE SCALE ───────────────────────────────── */
+    --t-xs:   10px;
+    --t-sm:   12px;
+    --t-base: 14px;
+    --t-md:   16px;
+    --t-lg:   20px;
+    --t-xl:   24px;
+    --t-2xl:  32px;
+    --t-3xl:  40px;
+    --t-hero: 56px;
+
+    /* ── SHADOWS ──────────────────────────────────── */
+    --shadow-card: 0 2px 12px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-gold: 0 0 24px rgba(201,168,76,0.2), 0 0 8px rgba(201,168,76,0.1);
+    --shadow-teal: 0 0 24px rgba(45,212,191,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--void);
+    color: var(--text-1);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ═══════════════════════════════════════════════
+     PAGE LAYOUT
+  ═══════════════════════════════════════════════ */
+  .page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--s7) var(--s6);
+  }
+
+  /* ── SECTION TITLES ─────────────────────────── */
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: var(--s3);
+  }
+  .section-title {
+    font-size: var(--t-xl);
+    font-weight: 700;
+    color: var(--text-1);
+    margin-bottom: var(--s2);
+  }
+  .section-sub {
+    font-size: var(--t-sm);
+    color: var(--text-2);
+    margin-bottom: var(--s7);
+    line-height: 1.6;
+  }
+  .section-block {
+    margin-bottom: var(--s10);
+  }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: var(--s10) 0;
+  }
+
+  /* ═══════════════════════════════════════════════
+     HERO HEADER
+  ═══════════════════════════════════════════════ */
+  .hero {
+    position: relative;
+    padding: var(--s10) 0 var(--s9);
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 20% 80%, rgba(45,212,191,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+  }
+  .hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s2);
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: var(--r-pill);
+    padding: var(--s1) var(--s4);
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-xs);
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: var(--s5);
+  }
+  .hero-label::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--gold);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 5vw, var(--t-hero));
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--s5);
+  }
+  .hero h1 em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--gold-glow);
+  }
+  .hero-desc {
+    font-size: var(--t-md);
+    color: var(--text-2);
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: var(--s7);
+  }
+  .hero-stats {
+    display: flex;
+    gap: var(--s7);
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hero-stat-val {
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-xl);
+    font-weight: 500;
+    color: var(--text-1);
+  }
+  .hero-stat-lbl {
+    font-size: var(--t-xs);
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ═══════════════════════════════════════════════
+     COLOR PALETTE
+  ═══════════════════════════════════════════════ */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--s3);
+  }
+  .swatch {
+    border-radius: var(--r3);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .swatch-color {
+    height: 64px;
+  }
+  .swatch-info {
+    padding: var(--s2) var(--s3);
+    background: var(--surface);
+  }
+  .swatch-name {
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-xs);
+    color: var(--text-2);
+    margin-bottom: 2px;
+  }
+  .swatch-hex {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-3);
+  }
+
+  /* ═══════════════════════════════════════════════
+     SPACING GRID
+  ═══════════════════════════════════════════════ */
+  .spacing-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+  }
+  .spacing-row {
+    display: flex;
+    align-items: center;
+    gap: var(--s4);
+  }
+  .spacing-token {
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-xs);
+    color: var(--gold);
+    width: 36px;
+    flex-shrink: 0;
+  }
+  .spacing-bar-wrap {
+    flex: 1;
+    background: var(--surface);
+    border-radius: var(--r1);
+    height: 20px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .spacing-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    border-radius: var(--r1);
+    transition: width 0.6s ease;
+  }
+  .spacing-px {
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-xs);
+    color: var(--text-3);
+    width: 40px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .spacing-usage {
+    font-size: var(--t-xs);
+    color: var(--text-3);
+    width: 200px;
+    flex-shrink: 0;
+  }
+
+  /* ═══════════════════════════════════════════════
+     TYPE SCALE
+  ═══════════════════════════════════════════════ */
+  .type-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .type-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 180px;
+    align-items: baseline;
+    gap: var(--s6);
+    padding: var(--s4) 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .type-row:first-child { border-top: 1px solid var(--border); }
+  .type-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-xs);
+    color: var(--text-3);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .type-meta span:first-child { color: var(--gold); }
+  .type-usage-note {
+    font-size: var(--t-xs);
+    color: var(--text-3);
+    line-height: 1.4;
+  }
+
+  /* ═══════════════════════════════════════════════
+     COMPONENT SHOWCASE — CARDS
+  ═══════════════════════════════════════════════ */
+  .components-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--s5);
+    align-items: start;
+  }
+
+  /* Balance Card */
+  .balance-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r5);
+    padding: var(--s6);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+  .balance-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card), var(--shadow-gold);
+  }
+  .balance-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+  }
+  .balance-card-bg {
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--s5);
+  }
+  .card-label {
+    font-size: var(--t-xs);
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-family: 'DM Mono', monospace;
+  }
+  .card-icon {
+    width: 32px; height: 32px;
+    border-radius: var(--r2);
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .balance-amount {
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-3xl);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text-1);
+    margin-bottom: var(--s2);
+  }
+  .balance-currency {
+    font-size: var(--t-md);
+    color: var(--text-3);
+    font-weight: 400;
+    margin-right: var(--s2);
+  }
+  .balance-change {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s1);
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-xs);
+    padding: 2px 8px;
+    border-radius: var(--r-pill);
+  }
+  .balance-change.up {
+    background: var(--green-dim);
+    color: var(--green);
+    border: 1px solid rgba(46,204,113,0.2);
+  }
+  .balance-change.down {
+    background: var(--red-dim);
+    color: var(--red);
+    border: 1px solid rgba(255,71,87,0.2);
+  }
+
+  /* Sparkline mini chart */
+  .mini-chart {
+    margin-top: var(--s5);
+    height: 48px;
+    position: relative;
+  }
+  .mini-chart svg {
+    width: 100%; height: 100%;
+  }
+
+  /* Transaction Item */
+  .txn-list {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r5);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+  .txn-header {
+    padding: var(--s5) var(--s6);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .txn-title {
+    font-size: var(--t-base);
+    font-weight: 600;
+  }
+  .txn-view-all {
+    font-size: var(--t-xs);
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+  }
+  .txn-item {
+    display: flex;
+    align-items: center;
+    gap: var(--s4);
+    padding: var(--s4) var(--s6);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s ease;
+    cursor: pointer;
+  }
+  .txn-item:last-child { border-bottom: none; }
+  .txn-item:hover { background: var(--elevated); }
+  .txn-icon {
+    width: 40px; height: 40px;
+    border-radius: var(--r3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .txn-info { flex: 1; min-width: 0; }
+  .txn-name {
+    font-size: var(--t-base);
+    font-weight: 600;
+    color: var(--text-1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .txn-date {
+    font-size: var(--t-xs);
+    color: var(--text-3);
+    font-family: 'DM Mono', monospace;
+    margin-top: 2px;
+  }
+  .txn-amount {
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-base);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .txn-amount.cr { color: var(--green); }
+  .txn-amount.dr { color: var(--text-1); }
+
+  /* Portfolio Ring */
+  .portfolio-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r5);
+    padding: var(--s6);
+    box-shadow: var(--shadow-card);
+  }
+  .portfolio-ring {
+    display: flex;
+    align-items: center;
+    gap: var(--s6);
+    margin-bottom: var(--s5);
+  }
+  .ring-wrap {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+  }
+  .ring-wrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .ring-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .ring-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-md);
+    font-weight: 500;
+    color: var(--text-1);
+  }
+  .ring-lbl {
+    font-size: 9px;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .portfolio-legend { flex: 1; }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--s2) 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .legend-item:last-child { border-bottom: none; }
+  .legend-dot-name {
+    display: flex;
+    align-items: center;
+    gap: var(--s2);
+    font-size: var(--t-xs);
+    color: var(--text-2);
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .legend-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-xs);
+    color: var(--text-2);
+  }
+
+  /* Quick Actions */
+  .actions-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r5);
+    padding: var(--s6);
+    box-shadow: var(--shadow-card);
+  }
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s3);
+    margin-top: var(--s5);
+  }
+  .action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s2);
+    padding: var(--s4) var(--s2);
+    border-radius: var(--r3);
+    background: var(--elevated);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+  .action-btn:hover {
+    background: var(--border);
+    border-color: var(--border-hi);
+    transform: translateY(-1px);
+  }
+  .action-btn:active { transform: scale(0.97); }
+  .action-icon {
+    width: 40px; height: 40px;
+    border-radius: var(--r2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .action-label {
+    font-size: 10px;
+    color: var(--text-2);
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  /* Notification Alert */
+  .alert-card {
+    border-radius: var(--r4);
+    padding: var(--s4) var(--s5);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s4);
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+  }
+  .alert-card.info {
+    background: rgba(45,212,191,0.05);
+    border-color: rgba(45,212,191,0.2);
+  }
+  .alert-card.warn {
+    background: rgba(201,168,76,0.05);
+    border-color: rgba(201,168,76,0.2);
+  }
+  .alert-card.danger {
+    background: rgba(255,71,87,0.05);
+    border-color: rgba(255,71,87,0.2);
+  }
+  .alert-icon { font-size: 18px; flex-shrink: 0; padding-top: 2px; }
+  .alert-body { flex: 1; }
+  .alert-title {
+    font-size: var(--t-sm);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .alert-msg {
+    font-size: var(--t-xs);
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+
+  /* Input fields */
+  .input-demo {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r5);
+    padding: var(--s6);
+    box-shadow: var(--shadow-card);
+  }
+  .input-group {
+    margin-bottom: var(--s5);
+  }
+  .input-label {
+    font-size: var(--t-xs);
+    color: var(--text-2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: var(--s2);
+    display: block;
+  }
+  .input-field {
+    width: 100%;
+    background: var(--elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--r3);
+    padding: var(--s3) var(--s4);
+    color: var(--text-1);
+    font-family: 'Syne', sans-serif;
+    font-size: var(--t-base);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    appearance: none;
+  }
+  .input-field::placeholder { color: var(--text-3); }
+  .input-field:focus {
+    border-color: var(--gold-dim);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+  }
+  .input-field.error {
+    border-color: rgba(255,71,87,0.5);
+    box-shadow: 0 0 0 3px rgba(255,71,87,0.08);
+  }
+  .input-hint {
+    margin-top: var(--s2);
+    font-size: var(--t-xs);
+    color: var(--text-3);
+  }
+  .input-hint.err { color: var(--red); }
+
+  /* Amount input special */
+  .amount-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .amount-prefix {
+    position: absolute;
+    left: var(--s4);
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-lg);
+    color: var(--text-2);
+    pointer-events: none;
+  }
+  .amount-input {
+    padding-left: 36px;
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-2xl);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    height: 64px;
+  }
+
+  /* Button system */
+  .btn-showcase {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s3);
+    margin-top: var(--s5);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s2);
+    border-radius: var(--r3);
+    padding: var(--s3) var(--s5);
+    font-family: 'Syne', sans-serif;
+    font-size: var(--t-sm);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--void);
+    border-color: var(--gold);
+  }
+  .btn-primary:hover {
+    background: var(--gold-glow);
+    box-shadow: var(--shadow-gold);
+  }
+  .btn-secondary {
+    background: var(--elevated);
+    color: var(--text-1);
+    border-color: var(--border-hi);
+  }
+  .btn-secondary:hover { background: var(--border); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--gold);
+    border-color: rgba(201,168,76,0.3);
+  }
+  .btn-ghost:hover {
+    background: rgba(201,168,76,0.08);
+    border-color: rgba(201,168,76,0.5);
+  }
+  .btn-danger {
+    background: var(--red-dim);
+    color: var(--red);
+    border-color: rgba(255,71,87,0.3);
+  }
+  .btn-danger:hover { background: rgba(255,71,87,0.15); }
+  .btn-lg {
+    padding: var(--s4) var(--s7);
+    font-size: var(--t-base);
+    border-radius: var(--r4);
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ═══════════════════════════════════════════════
+     EMOTIONAL DESIGN PRINCIPLES
+  ═══════════════════════════════════════════════ */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--s5);
+  }
+  .principle-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r5);
+    padding: var(--s6);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+  .principle-card:hover { transform: translateY(-2px); }
+  .principle-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, var(--accent-l), var(--accent-r));
+  }
+  .principle-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-3);
+    margin-bottom: var(--s4);
+    letter-spacing: 0.1em;
+  }
+  .principle-icon-wrap {
+    width: 48px; height: 48px;
+    border-radius: var(--r3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: var(--s4);
+    border: 1px solid;
+  }
+  .principle-title {
+    font-size: var(--t-md);
+    font-weight: 700;
+    margin-bottom: var(--s3);
+    color: var(--text-1);
+  }
+  .principle-desc {
+    font-size: var(--t-sm);
+    color: var(--text-2);
+    line-height: 1.6;
+  }
+  .principle-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2);
+    margin-top: var(--s4);
+  }
+  .ptag {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    padding: 2px 8px;
+    border-radius: var(--r-pill);
+    background: var(--elevated);
+    border: 1px solid var(--border-hi);
+    color: var(--text-3);
+    letter-spacing: 0.06em;
+  }
+
+  /* ═══════════════════════════════════════════════
+     INDUSTRY PATTERNS
+  ═══════════════════════════════════════════════ */
+  .patterns-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--s4);
+  }
+  .pattern-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r4);
+    overflow: hidden;
+  }
+  .pattern-preview {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .pattern-body {
+    padding: var(--s4) var(--s5) var(--s5);
+  }
+  .pattern-name {
+    font-size: var(--t-sm);
+    font-weight: 700;
+    margin-bottom: var(--s2);
+  }
+  .pattern-desc {
+    font-size: var(--t-xs);
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+
+  /* ── NAVBAR ──────────────────────────────────── */
+  .mobile-nav {
+    display: flex;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: var(--s3) var(--s4);
+    border-radius: 0 0 var(--r4) var(--r4);
+    gap: var(--s1);
+  }
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: var(--s2);
+    border-radius: var(--r2);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .nav-item:hover { background: var(--elevated); }
+  .nav-item.active { background: rgba(201,168,76,0.08); }
+  .nav-icon { font-size: 20px; }
+  .nav-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    font-family: 'DM Mono', monospace;
+  }
+  .nav-item.active .nav-label { color: var(--gold); }
+  .nav-dot {
+    width: 4px; height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--gold);
+  }
+
+  /* ═══════════════════════════════════════════════
+     MOTION TOKENS DOC
+  ═══════════════════════════════════════════════ */
+  .motion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--s4);
+  }
+  .motion-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r4);
+    padding: var(--s5);
+  }
+  .motion-name {
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-xs);
+    color: var(--gold);
+    margin-bottom: var(--s2);
+  }
+  .motion-value {
+    font-family: 'DM Mono', monospace;
+    font-size: var(--t-sm);
+    color: var(--text-1);
+    margin-bottom: var(--s3);
+  }
+  .motion-desc { font-size: var(--t-xs); color: var(--text-2); line-height: 1.5; }
+  .motion-demo {
+    margin-top: var(--s4);
+    height: 6px;
+    background: var(--elevated);
+    border-radius: var(--r-pill);
+    overflow: hidden;
+    position: relative;
+  }
+  .motion-bar {
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    border-radius: var(--r-pill);
+    animation: slide var(--dur) var(--ease) infinite;
+  }
+  @keyframes slide {
+    0% { left: -40%; }
+    100% { left: 100%; }
+  }
+
+  /* FOOTER */
+  .footer {
+    padding: var(--s9) 0 var(--s7);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--s4);
+  }
+  .footer-brand {
+    font-size: var(--t-sm);
+    color: var(--text-3);
+    font-family: 'DM Mono', monospace;
+  }
+  .footer-brand strong { color: var(--gold); }
+
+  /* UTIL */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s1);
+    padding: 3px 10px;
+    border-radius: var(--r-pill);
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .chip-gold {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold);
+  }
+  .chip-teal {
+    background: rgba(45,212,191,0.08);
+    border: 1px solid rgba(45,212,191,0.2);
+    color: var(--teal);
+  }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s5);
+  }
+  @media (max-width: 640px) {
+    .two-col { grid-template-columns: 1fr; }
+    .type-row { grid-template-columns: 60px 1fr; }
+    .type-usage-note { display: none; }
+    .spacing-usage { display: none; }
+    .actions-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Stagger reveal animation on load */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: revealUp 0.5s ease forwards;
+  }
+  @keyframes revealUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal-d1 { animation-delay: 0.05s; }
+  .reveal-d2 { animation-delay: 0.12s; }
+  .reveal-d3 { animation-delay: 0.2s; }
+  .reveal-d4 { animation-delay: 0.3s; }
+  .reveal-d5 { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ─── HERO ──────────────────────────────────── -->
+  <section class="hero reveal">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-label">VAULT — Design System v2.1</div>
+    <h1>Fintech Dark UI<br><em>Design Language</em></h1>
+    <p class="hero-desc">Industry-grade component library, spacing grid, emotional design principles, and interactive patterns — built for high-trust financial interfaces.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-val">8px</span>
+        <span class="hero-stat-lbl">Base Grid</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">10</span>
+        <span class="hero-stat-lbl">Spacing Steps</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">12</span>
+        <span class="hero-stat-lbl">Components</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">6</span>
+        <span class="hero-stat-lbl">Emotion Principles</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─── 01 COLOUR PALETTE ──────────────────────── -->
+  <section class="section-block reveal reveal-d1">
+    <p class="section-tag">01 — Colour Palette</p>
+    <h2 class="section-title">Semantic Color System</h2>
+    <p class="section-sub">Every token has purpose. Backgrounds create depth, accents signal trust and action, semantics communicate state without ambiguity.</p>
+    <div class="palette-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#080A0F;"></div>
+        <div class="swatch-info"><div class="swatch-name">--void</div><div class="swatch-hex">#080A0F · App BG</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#131720;"></div>
+        <div class="swatch-info"><div class="swatch-name">--surface</div><div class="swatch-hex">#131720 · Cards</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1A2030;"></div>
+        <div class="swatch-info"><div class="swatch-name">--elevated</div><div class="swatch-hex">#1A2030 · Inputs</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#232B3A;border:1px solid #2E3A50"></div>
+        <div class="swatch-info"><div class="swatch-name">--border</div><div class="swatch-hex">#232B3A · Dividers</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#C9A84C;"></div>
+        <div class="swatch-info"><div class="swatch-name">--gold</div><div class="swatch-hex">#C9A84C · Primary</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#2DD4BF;"></div>
+        <div class="swatch-info"><div class="swatch-name">--teal</div><div class="swatch-hex">#2DD4BF · Positive</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FF4757;"></div>
+        <div class="swatch-info"><div class="swatch-name">--red</div><div class="swatch-hex">#FF4757 · Danger</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#2ECC71;"></div>
+        <div class="swatch-info"><div class="swatch-name">--green</div><div class="swatch-hex">#2ECC71 · Credit</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#EDF2FF;"></div>
+        <div class="swatch-info"><div class="swatch-name">--text-1</div><div class="swatch-hex">#EDF2FF · Primary txt</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#8B95A8;"></div>
+        <div class="swatch-info"><div class="swatch-name">--text-2</div><div class="swatch-hex">#8B95A8 · Secondary</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#4E5A6E;"></div>
+        <div class="swatch-info"><div class="swatch-name">--text-3</div><div class="swatch-hex">#4E5A6E · Muted</div></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─── 02 SPACING GRID ─────────────────────────── -->
+  <section class="section-block reveal reveal-d2">
+    <p class="section-tag">02 — Spacing Grid</p>
+    <h2 class="section-title">8px Base Spatial System</h2>
+    <p class="section-sub">All spacing derives from a single 8px base. This creates visual rhythm, reduces arbitrary decisions, and ensures consistent density across all screen sizes.</p>
+    <div class="spacing-list">
+      <div class="spacing-row">
+        <span class="spacing-token">--s1</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:calc(4/64*100%)"></div></div>
+        <span class="spacing-px">4px</span>
+        <span class="spacing-usage">Icon gaps, tight inline spacing</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">--s2</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:calc(8/64*100%)"></div></div>
+        <span class="spacing-px">8px</span>
+        <span class="spacing-usage">Label → value gaps, badge padding</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">--s3</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:calc(12/64*100%)"></div></div>
+        <span class="spacing-px">12px</span>
+        <span class="spacing-usage">Form field rows, list item inner</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">--s4</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:calc(16/64*100%)"></div></div>
+        <span class="spacing-px">16px</span>
+        <span class="spacing-usage">Card inner padding, list item rows</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">--s5</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:calc(20/64*100%)"></div></div>
+        <span class="spacing-px">20px</span>
+        <span class="spacing-usage">Card header gaps, section sub-items</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">--s6</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:calc(24/64*100%)"></div></div>
+        <span class="spacing-px">24px</span>
+        <span class="spacing-usage">Card padding, primary content gaps</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">--s7</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:calc(32/64*100%)"></div></div>
+        <span class="spacing-px">32px</span>
+        <span class="spacing-usage">Between card groups, section headers</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">--s8</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:calc(40/64*100%)"></div></div>
+        <span class="spacing-px">40px</span>
+        <span class="spacing-usage">Major section breaks</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">--s9</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:calc(48/64*100%)"></div></div>
+        <span class="spacing-px">48px</span>
+        <span class="spacing-usage">Screen edge padding top/bottom</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">--s10</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:100%"></div></div>
+        <span class="spacing-px">64px</span>
+        <span class="spacing-usage">Full section-to-section separation</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─── 03 TYPE SCALE ──────────────────────────── -->
+  <section class="section-block reveal reveal-d2">
+    <p class="section-tag">03 — Typography</p>
+    <h2 class="section-title">Type Scale & Pairing</h2>
+    <p class="section-sub">Syne (display + UI) × DM Mono (data, codes, labels) × Instrument Serif (editorial accents). Three typefaces, one voice.</p>
+    <div class="type-list">
+      <div class="type-row">
+        <div class="type-meta"><span>--t-hero</span><span>56px / 800</span></div>
+        <div style="font-size:var(--t-hero);font-weight:800;line-height:1;letter-spacing:-0.03em;">$48,291</div>
+        <div class="type-usage-note">Hero balance display only — single number per screen</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><span>--t-3xl</span><span>40px / 500</span></div>
+        <div style="font-family:'DM Mono',monospace;font-size:var(--t-3xl);font-weight:500;letter-spacing:-0.02em;">+12.4%</div>
+        <div class="type-usage-note">Metrics, portfolio returns, KPI callouts</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><span>--t-2xl</span><span>32px / 700</span></div>
+        <div style="font-size:var(--t-2xl);font-weight:700;letter-spacing:-0.02em;">Total Assets</div>
+        <div class="type-usage-note">Screen/page-level headings</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><span>--t-xl</span><span>24px / 700</span></div>
+        <div style="font-size:var(--t-xl);font-weight:700;">Card Headings</div>
+        <div class="type-usage-note">Section headings, module titles</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><span>--t-lg</span><span>20px / 600</span></div>
+        <div style="font-size:var(--t-lg);font-weight:600;">Investment Portfolio</div>
+        <div class="type-usage-note">Subsection, tab labels, modal titles</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><span>--t-md</span><span>16px / 400</span></div>
+        <div style="font-size:var(--t-md);">Your account balance has updated.</div>
+        <div class="type-usage-note">Primary body copy, descriptions</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><span>--t-base</span><span>14px / 400</span></div>
+        <div style="font-size:var(--t-base);color:var(--text-2);">Netflix · Entertainment · May 10</div>
+        <div class="type-usage-note">Transaction rows, list items, form fields</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><span>--t-sm</span><span>12px / 500</span></div>
+        <div style="font-family:'DM Mono',monospace;font-size:var(--t-sm);color:var(--text-3);letter-spacing:0.1em;text-transform:uppercase;">LAST UPDATED 09:41</div>
+        <div class="type-usage-note">Mono labels, timestamps, token names</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><span>--t-xs</span><span>10px / 500</span></div>
+        <div style="font-family:'DM Mono',monospace;font-size:var(--t-xs);letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);">VERIFIED · INSTANT · SECURED</div>
+        <div class="type-usage-note">Caps-locked category chips, eyebrow tags</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─── 04 COMPONENTS ─────────────────────────── -->
+  <section class="section-block reveal reveal-d3">
+    <p class="section-tag">04 — Components</p>
+    <h2 class="section-title">Live UI Components</h2>
+    <p class="section-sub">Interactive, production-ready components following the exact spacing, type, and color tokens above. Hover states and micro-interactions included.</p>
+
+    <div class="components-grid">
+
+      <!-- Balance Card -->
+      <div class="balance-card">
+        <div class="balance-card-bg"></div>
+        <div class="card-header">
+          <span class="card-label">Total Balance</span>
+          <div class="card-icon">💳</div>
+        </div>
+        <div class="balance-amount"><span class="balance-currency">USD</span>48,291.07</div>
+        <span class="balance-change up">▲ +2.34% today</span>
+        <div class="mini-chart">
+          <svg viewBox="0 0 200 48" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M0,38 L20,32 L40,35 L60,28 L80,22 L100,26 L120,18 L140,14 L160,10 L180,8 L200,4"
+                  fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M0,38 L20,32 L40,35 L60,28 L80,22 L100,26 L120,18 L140,14 L160,10 L180,8 L200,4 L200,48 L0,48Z"
+                  fill="url(#chartFill)"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Portfolio Ring -->
+      <div class="portfolio-card">
+        <div class="card-label" style="margin-bottom:var(--s5);">Portfolio Split</div>
+        <div class="portfolio-ring">
+          <div class="ring-wrap">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#1A2030" stroke-width="12"/>
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#C9A84C" stroke-width="12"
+                stroke-dasharray="143 96" stroke-linecap="round"/>
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#2DD4BF" stroke-width="12"
+                stroke-dasharray="57.6 181.4" stroke-dashoffset="-143" stroke-linecap="round"/>
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#2ECC71" stroke-width="12"
+                stroke-dasharray="28.8 210.2" stroke-dashoffset="-200.6" stroke-linecap="round"/>
+            </svg>
+            <div class="ring-center"><span class="ring-pct">3</span><span class="ring-lbl">Assets</span></div>
+          </div>
+          <div class="portfolio-legend">
+            <div class="legend-item">
+              <div class="legend-dot-name"><div class="dot" style="background:#C9A84C"></div>Equities</div>
+              <span class="legend-pct">60%</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot-name"><div class="dot" style="background:#2DD4BF"></div>Bonds</div>
+              <span class="legend-pct">24%</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot-name"><div class="dot" style="background:#2ECC71"></div>Crypto</div>
+              <span class="legend-pct">12%</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot-name"><div class="dot" style="background:#4E5A6E"></div>Cash</div>
+              <span class="legend-pct">4%</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:var(--s2);">
+          <span class="chip chip-teal">↑ Rebalance due</span>
+          <span class="chip chip-gold">Auto-invest ON</span>
+        </div>
+      </div>
+
+      <!-- Transaction List -->
+      <div class="txn-list">
+        <div class="txn-header">
+          <span class="txn-title">Recent Transactions</span>
+          <span class="txn-view-all">View all →</span>
+        </div>
+        <div class="txn-item">
+          <div class="txn-icon" style="background:rgba(45,212,191,0.08);">💸</div>
+          <div class="txn-info"><div class="txn-name">Salary Deposit</div><div class="txn-date">Today · 09:41 AM</div></div>
+          <span class="txn-amount cr">+$5,200.00</span>
+        </div>
+        <div class="txn-item">
+          <div class="txn-icon" style="background:rgba(201,168,76,0.08);">🎬</div>
+          <div class="txn-info"><div class="txn-name">Netflix</div><div class="txn-date">May 9 · Entertainment</div></div>
+          <span class="txn-amount dr">−$15.99</span>
+        </div>
+        <div class="txn-item">
+          <div class="txn-icon" style="background:rgba(255,71,87,0.08);">🛒</div>
+          <div class="txn-info"><div class="txn-name">Amazon Prime</div><div class="txn-date">May 8 · Shopping</div></div>
+          <span class="txn-amount dr">−$139.00</span>
+        </div>
+        <div class="txn-item">
+          <div class="txn-icon" style="background:rgba(46,204,113,0.08);">📈</div>
+          <div class="txn-info"><div class="txn-name">Dividend — AAPL</div><div class="txn-date">May 7 · Investments</div></div>
+          <span class="txn-amount cr">+$84.22</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="actions-card">
+        <div class="card-label">Quick Actions</div>
+        <div class="actions-grid">
+          <div class="action-btn">
+            <div class="action-icon" style="background:rgba(201,168,76,0.1);">↑</div>
+            <span class="action-label">Send</span>
+          </div>
+          <div class="action-btn">
+            <div class="action-icon" style="background:rgba(45,212,191,0.1);">↓</div>
+            <span class="action-label">Receive</span>
+          </div>
+          <div class="action-btn">
+            <div class="action-icon" style="background:rgba(46,204,113,0.1);">⇄</div>
+            <span class="action-label">Transfer</span>
+          </div>
+          <div class="action-btn">
+            <div class="action-icon" style="background:rgba(255,71,87,0.1);">+</div>
+            <span class="action-label">Top Up</span>
+          </div>
+          <div class="action-btn">
+            <div class="action-icon" style="background:rgba(201,168,76,0.1);">📊</div>
+            <span class="action-label">Invest</span>
+          </div>
+          <div class="action-btn">
+            <div class="action-icon" style="background:rgba(45,212,191,0.1);">🔒</div>
+            <span class="action-label">Lock Card</span>
+          </div>
+          <div class="action-btn">
+            <div class="action-icon" style="background:rgba(46,204,113,0.1);">🧾</div>
+            <span class="action-label">Statements</span>
+          </div>
+          <div class="action-btn">
+            <div class="action-icon" style="background:rgba(78,90,110,0.3);">···</div>
+            <span class="action-label">More</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alerts -->
+      <div style="display:flex;flex-direction:column;gap:var(--s3);">
+        <div class="alert-card info">
+          <span class="alert-icon">ℹ️</span>
+          <div class="alert-body">
+            <div class="alert-title" style="color:var(--teal);">Verification pending</div>
+            <div class="alert-msg">Your identity check is processing. Usually takes 2–4 hours. No action required.</div>
+          </div>
+        </div>
+        <div class="alert-card warn">
+          <span class="alert-icon">⚠️</span>
+          <div class="alert-body">
+            <div class="alert-title" style="color:var(--gold);">Low balance warning</div>
+            <div class="alert-msg">Savings account balance is below your $500 threshold. Consider a top-up.</div>
+          </div>
+        </div>
+        <div class="alert-card danger">
+          <span class="alert-icon">🚨</span>
+          <div class="alert-body">
+            <div class="alert-title" style="color:var(--red);">Unusual activity detected</div>
+            <div class="alert-msg">A login was attempted from an unrecognised device in Berlin, DE.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input + Buttons -->
+      <div class="input-demo">
+        <div class="card-label" style="margin-bottom:var(--s5);">Transfer Funds</div>
+        <div class="input-group">
+          <label class="input-label">Amount</label>
+          <div class="amount-input-wrap">
+            <span class="amount-prefix">$</span>
+            <input class="input-field amount-input" type="number" placeholder="0.00" value="1,200.00">
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Recipient Account</label>
+          <input class="input-field" type="text" placeholder="Account no. or @username">
+          <div class="input-hint">Enter account number or registered @handle</div>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Reference</label>
+          <input class="input-field error" type="text" placeholder="e.g. Rent May 2026" value="R3nt!">
+          <div class="input-hint err">⚠ Special characters not allowed in references</div>
+        </div>
+        <div class="btn-showcase" style="flex-direction:column;gap:var(--s3);">
+          <button class="btn btn-primary btn-lg">Confirm Transfer →</button>
+          <div style="display:flex;gap:var(--s3);">
+            <button class="btn btn-secondary" style="flex:1;justify-content:center;">Schedule</button>
+            <button class="btn btn-ghost" style="flex:1;justify-content:center;">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /components-grid -->
+
+    <!-- Mobile Nav Bar Preview -->
+    <div style="margin-top:var(--s5);max-width:400px;">
+      <div class="card-label" style="margin-bottom:var(--s3);">Bottom Navigation Bar</div>
+      <div class="mobile-nav">
+        <div class="nav-item active">
+          <span class="nav-icon">🏠</span>
+          <div class="nav-dot"></div>
+          <span class="nav-label">Home</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Markets</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">⇄</span>
+          <span class="nav-label">Trade</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">📋</span>
+          <span class="nav-label">History</span>
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">Profile</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Button showcase -->
+    <div style="margin-top:var(--s6);">
+      <div class="card-label" style="margin-bottom:var(--s4);">Button System</div>
+      <div class="btn-showcase">
+        <button class="btn btn-primary">Primary Action</button>
+        <button class="btn btn-secondary">Secondary</button>
+        <button class="btn btn-ghost">Ghost / Outline</button>
+        <button class="btn btn-danger">Destructive</button>
+      </div>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─── 05 EMOTIONAL DESIGN ─────────────────────── -->
+  <section class="section-block reveal reveal-d4">
+    <p class="section-tag">05 — Emotional Design</p>
+    <h2 class="section-title">6 Principles for Trust-First UX</h2>
+    <p class="section-sub">Fintech users feel anxiety, hope, fear, and pride. Each design decision either amplifies or diffuses these emotions. Here's how we architect for confidence.</p>
+
+    <div class="principles-grid">
+      <div class="principle-card" style="--accent-l:#C9A84C;--accent-r:#D4B563;">
+        <div class="principle-num">01 / 06</div>
+        <div class="principle-icon-wrap" style="background:rgba(201,168,76,0.08);border-color:rgba(201,168,76,0.2);">🔐</div>
+        <div class="principle-title">Radical Transparency</div>
+        <div class="principle-desc">Every number has a source. Every fee is surfaced before action. Never hide information in the happy path — distrust is built in the micro-moments of concealment. Show exchange rates, processing times, and exact amounts before confirmation.</div>
+        <div class="principle-tags">
+          <span class="ptag">Trust-building</span>
+          <span class="ptag">Disclosure-first</span>
+          <span class="ptag">Pre-confirmation</span>
+        </div>
+      </div>
+
+      <div class="principle-card" style="--accent-l:#2DD4BF;--accent-r:#2ECC71;">
+        <div class="principle-num">02 / 06</div>
+        <div class="principle-icon-wrap" style="background:rgba(45,212,191,0.08);border-color:rgba(45,212,191,0.2);">⚡</div>
+        <div class="principle-title">Perceived Speed</div>
+        <div class="principle-desc">Optimistic UI updates, skeleton loaders timed to 200ms, progress indicators on all async operations. Real latency is acceptable; perceived latency is the enemy. A 400ms fade-in feels faster than an instant no-feedback action.</div>
+        <div class="principle-tags">
+          <span class="ptag">Optimistic UI</span>
+          <span class="ptag">Skeletons</span>
+          <span class="ptag">Progress states</span>
+        </div>
+      </div>
+
+      <div class="principle-card" style="--accent-l:#2ECC71;--accent-r:#2DD4BF;">
+        <div class="principle-num">03 / 06</div>
+        <div class="principle-icon-wrap" style="background:rgba(46,204,113,0.08);border-color:rgba(46,204,113,0.2);">🎯</div>
+        <div class="principle-title">Progressive Disclosure</div>
+        <div class="principle-desc">Show one primary action per screen. Advanced options live behind "More" — never pollute primary flows. Users scanning their balance shouldn't see investment risks. Each screen has a single emotional job: reassure, inform, or request.</div>
+        <div class="principle-tags">
+          <span class="ptag">1 CTA/screen</span>
+          <span class="ptag">Focus</span>
+          <span class="ptag">Cognitive load</span>
+        </div>
+      </div>
+
+      <div class="principle-card" style="--accent-l:#8A6E2E;--accent-r:#C9A84C;">
+        <div class="principle-num">04 / 06</div>
+        <div class="principle-icon-wrap" style="background:rgba(201,168,76,0.06);border-color:rgba(201,168,76,0.15);">🎖️</div>
+        <div class="principle-title">Earned Celebration</div>
+        <div class="principle-desc">Micro-celebrations for first transfer, savings goal met, portfolio milestone — but only when earned. Confetti on every tap cheapens wins. Reserve delight animations for genuine achievements; restraint makes them feel real and motivating.</div>
+        <div class="principle-tags">
+          <span class="ptag">Milestone moments</span>
+          <span class="ptag">Restraint</span>
+          <span class="ptag">Motivation</span>
+        </div>
+      </div>
+
+      <div class="principle-card" style="--accent-l:#FF4757;--accent-r:#C9A84C;">
+        <div class="principle-num">05 / 06</div>
+        <div class="principle-icon-wrap" style="background:rgba(255,71,87,0.08);border-color:rgba(255,71,87,0.2);">🛡️</div>
+        <div class="principle-title">Safe Error Recovery</div>
+        <div class="principle-desc">Errors in finance feel catastrophic. Red should be precise and calm — never alarming. Inline validation, not post-submit. Offer exact correction paths: "Replace '!' with a letter." Give users an escape hatch before every destructive action.</div>
+        <div class="principle-tags">
+          <span class="ptag">Inline validation</span>
+          <span class="ptag">Undo patterns</span>
+          <span class="ptag">Calm errors</span>
+        </div>
+      </div>
+
+      <div class="principle-card" style="--accent-l:#2DD4BF;--accent-r:#C9A84C;">
+        <div class="principle-num">06 / 06</div>
+        <div class="principle-icon-wrap" style="background:rgba(45,212,191,0.08);border-color:rgba(45,212,191,0.2);">🌒</div>
+        <div class="principle-title">Dark as Calm Signal</div>
+        <div class="principle-desc">Dark interfaces reduce visual fatigue during repeated daily check-ins. They signal premium and seriousness — aligned with high-value financial contexts. Deep blacks anchor the eye; gold accents draw attention without panic. Darkness = focus, not fear.</div>
+        <div class="principle-tags">
+          <span class="ptag">Eye-fatigue</span>
+          <span class="ptag">Premium perception</span>
+          <span class="ptag">Attention</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─── 06 INDUSTRY PATTERNS ─────────────────────── -->
+  <section class="section-block reveal reveal-d5">
+    <p class="section-tag">06 — Industry Patterns</p>
+    <h2 class="section-title">Fintech-Specific UX Patterns</h2>
+    <p class="section-sub">Patterns proven across Revolut, Robinhood, Wise, N26, and Cash App — refined into reusable interaction models.</p>
+
+    <div class="patterns-grid">
+      <div class="pattern-card">
+        <div class="pattern-preview" style="background:linear-gradient(135deg,#0D1017,#1A2030);">
+          <div style="text-align:center;">
+            <div style="font-family:'DM Mono',monospace;font-size:28px;font-weight:500;letter-spacing:-0.02em;color:#EDF2FF;">$24,500</div>
+            <div style="font-size:10px;color:#4E5A6E;text-transform:uppercase;letter-spacing:0.12em;margin-top:4px;">Swipe up to reveal</div>
+          </div>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-name">Balance Masking</div>
+          <div class="pattern-desc">Default-hide sensitive numbers. Let users reveal on tap. Reduces shoulder-surfing anxiety in public. Used by Revolut, Monzo, N26.</div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-preview" style="background:linear-gradient(135deg,#0D1017,#131720);">
+          <div style="display:flex;flex-direction:column;gap:8px;width:80%;">
+            <div style="height:8px;background:#2DD4BF;border-radius:4px;width:70%;"></div>
+            <div style="height:4px;background:#232B3A;border-radius:4px;"></div>
+            <div style="font-size:9px;font-family:'DM Mono',monospace;color:#2DD4BF;">70% to goal · $700 / $1,000</div>
+          </div>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-name">Goal Progress Bar</div>
+          <div class="pattern-desc">Linear progress with milestone markers. Converts abstract savings into tangible progress. Triggers dopamine-linked completion motivation.</div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-preview" style="background:linear-gradient(135deg,#0D1017,#1A2030);">
+          <div style="background:#131720;border:1px solid #2E3A50;border-radius:12px;padding:12px 16px;width:85%;box-shadow:0 8px 24px rgba(0,0,0,0.4);">
+            <div style="font-size:10px;color:#4E5A6E;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">Transfer ₹ 12,000?</div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;background:#3D1219;border:1px solid rgba(255,71,87,0.3);border-radius:8px;padding:8px;text-align:center;font-size:11px;color:#FF4757;cursor:pointer;">Cancel</div>
+              <div style="flex:1;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:8px;text-align:center;font-size:11px;color:#C9A84C;cursor:pointer;">Confirm</div>
+            </div>
+          </div>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-name">Confirmation Sheet</div>
+          <div class="pattern-desc">Bottom sheet with full transaction summary before execution. The "Cancel" button is always reachable. Reduces accidental transfers.</div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-preview" style="background:linear-gradient(135deg,#0D1017,#131720);">
+          <div style="display:flex;gap:4px;align-items:flex-end;height:60px;padding:0 16px;">
+            <div style="width:12%;background:#232B3A;height:30%;border-radius:2px 2px 0 0;"></div>
+            <div style="width:12%;background:#2DD4BF;height:60%;border-radius:2px 2px 0 0;"></div>
+            <div style="width:12%;background:#232B3A;height:45%;border-radius:2px 2px 0 0;"></div>
+            <div style="width:12%;background:#C9A84C;height:100%;border-radius:2px 2px 0 0;"></div>
+            <div style="width:12%;background:#232B3A;height:55%;border-radius:2px 2px 0 0;"></div>
+            <div style="width:12%;background:#232B3A;height:70%;border-radius:2px 2px 0 0;"></div>
+            <div style="width:12%;background:#2DD4BF;height:40%;border-radius:2px 2px 0 0;"></div>
+          </div>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-name">Spend Histogram</div>
+          <div class="pattern-desc">Daily/weekly spend bars with colour-coded categories. Current day or max highlighted. Users identify patterns without reading raw numbers.</div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-preview" style="background:linear-gradient(135deg,#0D1017,#131720);">
+          <div style="display:flex;flex-direction:column;gap:6px;width:80%;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:10px;color:#8B95A8;">Step 1 of 3</span>
+              <span style="font-size:10px;font-family:'DM Mono',monospace;color:#C9A84C;">KYC</span>
+            </div>
+            <div style="height:4px;background:#232B3A;border-radius:4px;overflow:hidden;">
+              <div style="width:33%;height:100%;background:#C9A84C;border-radius:4px;"></div>
+            </div>
+            <div style="font-size:11px;color:#EDF2FF;font-weight:600;">Upload ID Document</div>
+          </div>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-name">Stepped Onboarding</div>
+          <div class="pattern-desc">KYC/AML flows broken into labelled steps with visible progress. Never ask for sensitive data without explaining why. Each step earns trust.</div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-preview" style="background:linear-gradient(135deg,#0D1017,#131720);">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:rgba(46,204,113,0.12);border:2px solid #2ECC71;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 20px rgba(46,204,113,0.3);">✓</div>
+            <div style="font-size:12px;font-weight:700;color:#EDF2FF;">Payment Sent!</div>
+            <div style="font-size:10px;color:#4E5A6E;font-family:'DM Mono',monospace;">REF #TX91847</div>
+          </div>
+        </div>
+        <div class="pattern-body">
+          <div class="pattern-name">Success State</div>
+          <div class="pattern-desc">Immediate confirmation screen after transaction. Reference number always visible. Green glow, not animation overload — signals finality and trust.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─── 07 MOTION TOKENS ──────────────────────────── -->
+  <section class="section-block reveal reveal-d5">
+    <p class="section-tag">07 — Motion Tokens</p>
+    <h2 class="section-title">Animation & Easing System</h2>
+    <p class="section-sub">Motion in fintech must convey reliability. Nothing should feel bouncy, playful, or unpredictable. Measured, purposeful transitions build trust.</p>
+    <div class="motion-grid">
+      <div class="motion-card">
+        <div class="motion-name">--ease-enter</div>
+        <div class="motion-value">cubic-bezier(0,0,0.2,1)</div>
+        <div class="motion-desc">Elements entering the screen. Starts fast, ends slow — natural deceleration like an object settling.</div>
+        <div class="motion-demo"><div class="motion-bar" style="--dur:0.6s;--ease:cubic-bezier(0,0,0.2,1)"></div></div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-name">--ease-exit</div>
+        <div class="motion-value">cubic-bezier(0.4,0,1,1)</div>
+        <div class="motion-desc">Elements leaving the screen. Starts slow, ends fast — urgency of departure without abruptness.</div>
+        <div class="motion-demo"><div class="motion-bar" style="--dur:0.4s;--ease:cubic-bezier(0.4,0,1,1)"></div></div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-name">--ease-standard</div>
+        <div class="motion-value">cubic-bezier(0.4,0,0.2,1)</div>
+        <div class="motion-desc">State changes, hover transitions. Smooth in both directions. Used for 90% of UI transitions.</div>
+        <div class="motion-demo"><div class="motion-bar" style="--dur:0.3s;--ease:cubic-bezier(0.4,0,0.2,1)"></div></div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-name">--dur-instant</div>
+        <div class="motion-value">80ms</div>
+        <div class="motion-desc">Button press feedback, checkbox toggles. Too fast to notice but critical for feeling responsive.</div>
+        <div class="motion-demo"><div class="motion-bar" style="--dur:0.08s;--ease:linear"></div></div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-name">--dur-fast</div>
+        <div class="motion-value">150–200ms</div>
+        <div class="motion-desc">Tooltip appear, dropdown open, icon swap. Standard micro-interaction duration for UI element reveal.</div>
+        <div class="motion-demo"><div class="motion-bar" style="--dur:0.18s;--ease:ease-out"></div></div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-name">--dur-slow</div>
+        <div class="motion-value">400–600ms</div>
+        <div class="motion-desc">Page transitions, chart drawing, success states. Deliberate pace signals weight of the financial action.</div>
+        <div class="motion-demo"><div class="motion-bar" style="--dur:0.5s;--ease:ease-in-out"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-brand"><strong>VAULT</strong> Design System v2.1 · Fintech Dark Theme</div>
+    <div style="display:flex;gap:var(--s3);">
+      <span class="chip chip-gold">8px Grid</span>
+      <span class="chip chip-teal">WCAG AA</span>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+</body>
+</html>
